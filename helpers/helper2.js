@@ -18,14 +18,15 @@ function getTotalPrice(item) {
 module.exports = (itemsData = 0) => {
   let highestPrice = '';
   let highestPriceItem = '';
+  let inputData = itemsData;
 
   if (itemsData === 0) {
     const jsonString = fs.readFileSync('./data.json');
     const {items: itemsArray} = JSON.parse(jsonString);
-    itemsData = itemsArray;
+    inputData = itemsArray;
   }
 
-  itemsData.forEach(item => {
+  inputData.forEach(item => {
       const itemTotalPrice = getTotalPrice(item);
 
       if (!highestPrice) {
