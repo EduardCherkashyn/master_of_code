@@ -1,7 +1,4 @@
-const fs = require('fs');
-
-const jsonString = fs.readFileSync('./data.json');
-const {items} = JSON.parse(jsonString);
+const {items} = require('./data.json');
 
 const {
   helper1: filterHelper,

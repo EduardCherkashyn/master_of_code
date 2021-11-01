@@ -1,7 +1,6 @@
-const fs = require('fs');
+const {items:itemsArray} = require('../data.json');
 
-function getIntPriceAmount(priceRaw)
-{
+function getIntPriceAmount(priceRaw) {
   const price = priceRaw.substr(1);
 
   return Number(price.replace(',', '.'));
@@ -21,8 +20,6 @@ module.exports = (itemsData = 0) => {
   let inputData = itemsData;
 
   if (itemsData === 0) {
-    const jsonString = fs.readFileSync('./data.json');
-    const {items: itemsArray} = JSON.parse(jsonString);
     inputData = itemsArray;
   }
 

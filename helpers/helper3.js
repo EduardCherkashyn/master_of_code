@@ -1,5 +1,4 @@
-function getIntPriceAmount(priceRaw)
-{
+function getIntPriceAmount(priceRaw) {
   const price = priceRaw.substr(1);
 
   return Number(price.replace(',', '.'));
