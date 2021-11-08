@@ -8,29 +8,29 @@ function filter(req) {
     return {
       code: 200,
       responseData: {
-        message: JSON.stringify(helpers.items)
+        message: helpers.items
       }
     };
   }
 
   if (!validators.isAllowedKeysParams(Array.from(queryParams.keys()))) {
     return {
-      code: 404,
+      code: 400,
       responseData: {
-        message: 'Key params are not valid'
+        message: 'Bad request'
       }
     };
   }
-  
+
   const isAllowedValuesParams = validators.isAllowedValuesParams(
     Array.from(queryParams.entries())
   );
 
-  if (!isAllowedValuesParams.isValid) {
+  if (!isAllowedValuesParams) {
     return {
-      code: 404,
+      code: 400,
       responseData: {
-        message: isAllowedValuesParams.errorMessage
+        message: 'Bad request'
       }
     };
   }
@@ -45,7 +45,7 @@ function filter(req) {
 
   if (filteredItems.length === 0) {
     return {
-      code: 404,
+      code: 204,
       responseData: {
         message: 'No items found.'
       }

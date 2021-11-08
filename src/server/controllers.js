@@ -16,26 +16,45 @@ function filterPost(req, res) {
   res.end();
 }
 
-// function topPrice(req, res) {
-//   const { message, code } = services.home();
-//   res.write(message);
-//   res.statusCode = code;
-//   res.end();
-// }
+function topPriceGet(req, res) {
+  const { message, code } = services.topPriceGet();
+  res.setHeader('Content-Type', 'application/json');
+  res.statusCode = code;
+  res.write(JSON.stringify(message));
+  res.end();
+}
 
-// function commonPrice(req, res) {
-//   const { message, code } = services.home();
-//   res.write(message);
-//   res.statusCode = code;
-//   res.end();
-// }
+function topPricePost(req, res) {
+  const { message, code } = services.topPricePost(req);
+  res.setHeader('Content-Type', 'application/json');
+  res.statusCode = code;
+  res.write(JSON.stringify(message));
+  res.end();
+}
 
-// function dataOverride(req, res) {
-//   const { message, code } = services.home();
-//   res.write(message);
-//   res.statusCode = code;
-//   res.end();
-// }
+function commonPriceGet(req, res) {
+  const { message, code } = services.commonPriceGet(req);
+  res.setHeader('Content-Type', 'application/json');
+  res.statusCode = code;
+  res.write(JSON.stringify(message));
+  res.end();
+}
+
+function commonPricePost(req, res) {
+  const { message, code } = services.commonPricePost(req);
+  res.setHeader('Content-Type', 'application/json');
+  res.statusCode = code;
+  res.write(JSON.stringify(message));
+  res.end();
+}
+
+function dataOverride(req, res) {
+  const { message, code } = services.dataOverride(req);
+  res.setHeader('Content-Type', 'application/json');
+  res.statusCode = code;
+  res.write(JSON.stringify(message));
+  res.end();
+}
 
 function notFound(req, res) {
   const { message, code } = services.notFound();
@@ -47,8 +66,10 @@ function notFound(req, res) {
 module.exports = {
   filterGet,
   filterPost,
-  // topPrice,
-  // commonPrice,
-  // dataOverride,
+  topPriceGet,
+  topPricePost,
+  commonPriceGet,
+  commonPricePost,
+  dataOverride,
   notFound,
 };

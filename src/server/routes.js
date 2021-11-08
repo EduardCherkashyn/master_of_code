@@ -15,20 +15,20 @@ module.exports = (req, res) => {
   // Top price endpoints
   if (pathname === '/topprice'
     && method === 'GET'
-  ) return controllers.topPrice(req, res);
+  ) return controllers.topPriceGet(req, res);
 
   if (pathname === '/topprice'
     && method === 'POST'
-  ) return controllers.topPrice(req, res);
+  ) return controllers.topPricePost(req, res);
 
   // Common price endpoints
   if (pathname === '/commonprice'
     && method === 'GET'
-  ) return controllers.commonPrice(req, res);
+  ) return controllers.commonPriceGet(req, res);
 
   if (pathname === '/commonprice'
     && method === 'POST'
-  ) return controllers.commonPrice(req, res);
+  ) return controllers.commonPricePost(req, res);
 
   // Data override endpoint
   if (pathname === '/data'
