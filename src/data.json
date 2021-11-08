@@ -1,5 +1,4 @@
-{
-  "items" : [
+ [
     {"item": "apple", "type": "Fuji", "weight": 10, "pricePerKilo": "$3"},
     {"item": "orange", "type": "Clementine", "weight": 6, "pricePerKilo": "$7"},
     {"item": "watermelon", "type": "Nova", "quantity": 1, "pricePerItem": "$5"},
@@ -12,5 +11,4 @@
     {"item": "watermelon", "type": "Millionaire", "quantity": 2, "pricePerItem": "$7"},
     {"item": "orange", "type": "Tangerine", "weight": 4, "pricePerKilo": "$4,99"},
     {"item": "apple", "type": "Jazz", "weight": 4, "pricePerKilo": "$5"}
-  ]
-}
+]
