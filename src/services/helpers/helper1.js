@@ -1,11 +1,11 @@
 module.exports = (items, key, value) => {
-    const result = items.filter(item => {
-        if (item[key] === value) {
-          return true;
-        }
+  const result = items.filter(item => {
+    if (item[key] === value) {
+      return true;
+    }
 
-        return false;
-    });
+    return false;
+  });
 
-    return result;
+  return result;
 };
