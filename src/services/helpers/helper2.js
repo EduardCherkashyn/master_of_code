@@ -1,4 +1,4 @@
-const {items:itemsArray} = require('../data.json');
+const itemsArray = require('../../data.json');
 
 function getIntPriceAmount(priceRaw) {
   const price = priceRaw.substr(1);
