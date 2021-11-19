@@ -1,19 +1,23 @@
 const services = require('../../services');
 
 function discountPromiseGet(req, res) {
-  const { message, code } = services.discountPromiseGet();
   res.setHeader('Content-Type', 'application/json');
-  res.statusCode = code;
-  res.write(JSON.stringify(message));
-  res.end();
+  services.discountPromiseGet(res);
 }
 
 function discountPromisePost(req, res) {
-  const { message, code } = services.discountPromisePost();
   res.setHeader('Content-Type', 'application/json');
-  res.statusCode = code;
-  res.write(JSON.stringify(message));
-  res.end();
+  services.discountPromisePost(req, res);
+}
+
+function discountPromisifyGet(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  services.discountPromiseGet(res);
+}
+
+function discountPromisifyPost(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  services.discountPromisePost(req, res);
 }
 
 async function discountAsyncGet(req, res) {
@@ -35,6 +39,8 @@ async function discountAsyncPost(req, res) {
 module.exports = {
   discountPromiseGet,
   discountPromisePost,
+  discountPromisifyGet,
+  discountPromisifyPost,
   discountAsyncGet,
   discountAsyncPost
 };

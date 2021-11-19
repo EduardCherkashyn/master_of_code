@@ -1,7 +1,8 @@
+const util = require('util');
 const discountFunction = require('./discountFunction');
 
 function getDiscount() {
-  return new Promise((resolve) => {
+  return util.promisify((resolve) => {
     discountFunction((err, result) => {
       if (err) return resolve(getDiscount());
 

@@ -44,6 +44,15 @@ module.exports = (req, res) => {
     && method === 'POST'
   ) return controllers.discountPromisePost(req, res);
 
+  // Discount promisify endpoints
+  if (pathname === '/discount/promisify'
+    && method === 'GET'
+  ) return controllers.discountPromisifyGet(req, res);
+
+  if (pathname === '/discount/promisify'
+    && method === 'POST'
+  ) return controllers.discountPromisifyPost(req, res);
+
   // Discount async endpoints
   if (pathname === '/discount/async'
     && method === 'GET'

@@ -2,6 +2,8 @@ const services = require('../../services');
 const {
   discountPromiseGet,
   discountPromisePost,
+  discountPromisifyGet,
+  discountPromisifyPost,
   discountAsyncGet,
   discountAsyncPost
 } = require('./discount');
@@ -34,6 +36,8 @@ module.exports = {
   dataOverride,
   discountPromiseGet,
   discountPromisePost,
+  discountPromisifyGet,
+  discountPromisifyPost,
   discountAsyncGet,
   discountAsyncPost,
   notFound,
