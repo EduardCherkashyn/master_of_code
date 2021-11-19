@@ -1,8 +1,11 @@
-const discountFunction = require('./discountFunction');
+const {
+  getDiscountFunction,
+  getPriceWithDiscount
+} = require('./discountFunction');
 
 function getDiscount() {
   return new Promise((resolve) => {
-    discountFunction((err, result) => {
+    getDiscountFunction((err, result) => {
       if (err) return resolve(getDiscount());
 
       return resolve(result);
@@ -14,19 +17,7 @@ module.exports = (itemsData) => {
   return Promise.all(itemsData.map(item =>
     getDiscount()
       .then((discount) => {
-        const discountPercent = (100 - discount) / 100;
-        let priceWithDiscount = item.price * discountPercent;
-
-        if (item.item === 'pineapple' && item.type === 'Red Spanish') {
-          priceWithDiscount *= discountPercent;
-        }
-
-        if (item.item === 'orange' && item.type === 'Tangerine') {
-          priceWithDiscount *= discountPercent;
-          priceWithDiscount *= discountPercent;
-        }
-
-        priceWithDiscount = priceWithDiscount.toFixed(2);
+        const priceWithDiscount = getPriceWithDiscount(item, discount);
 
         return Object.assign(
           item,

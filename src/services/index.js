@@ -8,6 +8,10 @@ const {
   discountPromisePost
 } = require('./discountPromise');
 const {
+  discountPromisifyGet,
+  discountPromisifyPost
+} = require('./discountPromisify');
+const {
   discountAsyncGet,
   discountAsyncPost
 } = require('./discountAsync');
@@ -29,6 +33,8 @@ module.exports = {
   dataOverride,
   discountPromiseGet,
   discountPromisePost,
+  discountPromisifyGet,
+  discountPromisifyPost,
   discountAsyncGet,
   discountAsyncPost,
   notFound

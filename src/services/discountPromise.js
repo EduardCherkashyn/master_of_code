@@ -4,30 +4,17 @@ const constants = require('../constants');
 
 const itemsArray = constants.productItems;
 
-function discountPromiseGet(response) {
-  helpers.discountPromise(helpers.addingTotalPriceHelper(itemsArray))
-    .then(data => {
-      response.statusCode = 200;
-      response.write(JSON.stringify(data));
-      response.end();
-    });
+function discountPromiseGet() {
+  return helpers.discountPromise(helpers.addingTotalPriceHelper(itemsArray));
 }
 
-function discountPromisePost(req, response) {
+function discountPromisePost(req) {
   const postData = JSON.parse(req.body);
 
-  if (!itemsValidator(postData)) {
-    response.statusCode = 400;
-    response.write(JSON.stringify('Bad request'));
-    response.end();
-  } else {
-    helpers.discountPromise(helpers.addingTotalPriceHelper(postData))
-      .then(data => {
-        response.statusCode = 200;
-        response.write(JSON.stringify(data));
-        response.end();
-      });
-  }
+  return new Promise((resolve, reject) => {
+    if (!itemsValidator(postData)) reject(new Error('Not valid data'));
+    resolve(helpers.discountPromise(helpers.addingTotalPriceHelper(postData)));
+  });
 }
 
 module.exports = {
