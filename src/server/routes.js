@@ -35,5 +35,32 @@ module.exports = (req, res) => {
     && method === 'POST'
   ) return controllers.dataOverride(req, res);
 
+  // Discount promise endpoints
+  if (pathname === '/discount/promise'
+    && method === 'GET'
+  ) return controllers.discountPromiseGet(req, res);
+
+  if (pathname === '/discount/promise'
+    && method === 'POST'
+  ) return controllers.discountPromisePost(req, res);
+
+  // Discount promisify endpoints
+  if (pathname === '/discount/promisify'
+    && method === 'GET'
+  ) return controllers.discountPromisifyGet(req, res);
+
+  if (pathname === '/discount/promisify'
+    && method === 'POST'
+  ) return controllers.discountPromisifyPost(req, res);
+
+  // Discount async endpoints
+  if (pathname === '/discount/async'
+    && method === 'GET'
+  ) return controllers.discountAsyncGet(req, res);
+
+  if (pathname === '/discount/async'
+    && method === 'POST'
+  ) return controllers.discountAsyncPost(req, res);
+
   return controllers.notFound(req, res);
 };
