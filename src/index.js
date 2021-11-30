@@ -1,9 +1,31 @@
-const http = require('http');
+const server = require('./server');
 
-const requestHandler = require('./server/requestHandler');
+function enableGracefulExit() {
+  const exitHandler = error => {
+    if (error) console.log(error);
 
-const PORT = 3000;
+    console.log('Gracefully stopping...');
+    server.stop(() => {
+      process.exit();
+    });
+  };
 
-http.createServer(requestHandler).listen(PORT, () => {
-  console.log(`Server successfully started on port ${PORT}`);
-});
+  // Catches ctrl+c event
+  process.on('SIGINT', exitHandler);
+  process.on('SIGTERM', exitHandler);
+
+  // Catches "kill pid"
+  process.on('SIGUSR1', exitHandler);
+  process.on('SIGUSR2', exitHandler);
+
+  // Catches uncaught/unhandled exceptions
+  process.on('uncaughtException', exitHandler);
+  process.on('unhandledRejection', exitHandler);
+}
+
+function boot() {
+  enableGracefulExit();
+  server.start();
+}
+
+boot();

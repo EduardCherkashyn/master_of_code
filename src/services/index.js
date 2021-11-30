@@ -3,6 +3,7 @@ const { filter: filterPost } = require('./filters/post');
 const { topPriceGet, topPricePost } = require('./topPrice');
 const { commonPriceGet, commonPricePost } = require('./commonPrice');
 const dataOverride = require('./dataOverride');
+const dataUploadCsv = require('./dataUploadCsv');
 const {
   discountPromiseGet,
   discountPromisePost
@@ -31,6 +32,7 @@ module.exports = {
   commonPriceGet,
   commonPricePost,
   dataOverride,
+  dataUploadCsv,
   discountPromiseGet,
   discountPromisePost,
   discountPromisifyGet,

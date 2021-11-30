@@ -1,14 +1,15 @@
-const routes = require('./routes');
+const { handleRoutes, handleStreamRoutes } = require('./routes');
 
 module.exports = (req, res) => {
-  const {
-    url,
-    headers: { host },
-  } = req;
-
-  const { pathname, searchParams } = new URL(url, `https://${host}`);
+  if (req.headers['content-type'] === 'text/csv') {
+    handleStreamRoutes(req, res)
+      .catch(err => console.error('CSV handler failed', err));
+    return;
+  }
 
   let body = [];
+  const  { url, headers: { host } } = req;
+  const { pathname, searchParams } = new URL(url, `https://${host}`);
 
   req
     .on('error', (err) => {
@@ -19,6 +20,6 @@ module.exports = (req, res) => {
     })
     .on('end', () => {
       body = Buffer.concat(body).toString();
-      routes({ ...req, pathname, body, params: searchParams }, res);
+      handleRoutes({ ...req, pathname, body, params: searchParams }, res);
     });
 };
