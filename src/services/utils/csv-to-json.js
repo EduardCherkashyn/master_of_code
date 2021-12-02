@@ -1,5 +1,6 @@
 const { Transform } = require('stream');
 const itemsOptimizer = require('./items-optimizer');
+const objectsOptimizer = require('./objects-optimizer');
 
 function parseStringToJson(dataRaw, isFirstLine) {
   let output = '';
@@ -43,21 +44,19 @@ function validateChunkSideItems(lastItem, firstItem) {
 
 function createCsvToJson() {
   let isFirstChunk = true;
-  let output = '';
   let lastItemInChunk = '';
   let firstItemInChunk = '';
+  let totalItems = [];
 
   const transform = (chunk, encoding, callback) => {
     if (isFirstChunk) {
       const data = chunk.toString().split('\n');
       data.shift();
       lastItemInChunk = data.pop();
-      output = '[\n';
       const parsedData = parseStringToJson(data, true);
-      output += parsedData;
+      totalItems += `[${parsedData}]`;
       isFirstChunk = false;
     } else {
-      output = '';
       const data = chunk.toString().split('\n');
       firstItemInChunk = data.shift();
       const chunkCutItems = validateChunkSideItems(
@@ -70,14 +69,20 @@ function createCsvToJson() {
         data.unshift(element);
       });
 
-      output += parseStringToJson(data, false);
+      totalItems = totalItems.slice(1, -1);
+      totalItems += parseStringToJson(data, false);
+      totalItems = JSON.stringify(
+        objectsOptimizer(JSON.parse(`[${totalItems}]`)),
+        null,
+        ' '
+      );
     }
 
-    callback(null, output);
+    callback(null, null);
   };
 
   const flush = callback => {
-    callback(null, '\n]');
+    callback(null, totalItems);
   };
 
   return new Transform({ transform, flush });
