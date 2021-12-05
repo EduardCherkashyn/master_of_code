@@ -19,6 +19,14 @@ function dataOverride(req, res) {
   res.end();
 }
 
+async function dataUploadCsv(req, res) {
+  const { code } = await services.dataUploadCsv(req);
+  res.setHeader('Content-Type', 'application/json');
+  res.statusCode = code;
+  res.write(JSON.stringify('Upload was successfull!'));
+  res.end();
+}
+
 function notFound(req, res) {
   const { message, code } = services.notFound();
   res.statusCode = code;
@@ -34,6 +42,7 @@ module.exports = {
   commonPriceGet,
   commonPricePost,
   dataOverride,
+  dataUploadCsv,
   discountPromiseGet,
   discountPromisePost,
   discountPromisifyGet,

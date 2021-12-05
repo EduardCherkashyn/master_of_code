@@ -1,10 +1,9 @@
 const itemsValidator = require('./validators/itemsValidator');
 const helpers = require('./helpers');
-const constants = require('../constants');
-
-const itemsArray = constants.productItems;
+const itemsProvider = require('../itemsProvider');
 
 async function discountAsyncGet() {
+  const itemsArray = await itemsProvider.getItems();
   const itemsWithTotalPrice = helpers.addingTotalPriceHelper(itemsArray);
   const itemsWithDiscount = await helpers.discountAsync(itemsWithTotalPrice);
 

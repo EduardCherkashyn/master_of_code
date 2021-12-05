@@ -1,6 +1,4 @@
-const constants = require('../../constants');
-
-const itemsArray = constants.productItems;
+const itemsProvider = require('../../itemsProvider');
 
 function getIntPriceAmount(priceRaw) {
   const price = priceRaw.substr(1);
@@ -16,12 +14,13 @@ function getTotalPrice(item) {
   return getIntPriceAmount(item.pricePerItem) * item.quantity;
 }
 
-module.exports = (itemsData = 0) => {
+module.exports = async (itemsData = 0) => {
   let highestPrice = '';
   let highestPriceItem = '';
   let inputData = itemsData;
 
   if (itemsData === 0) {
+    const itemsArray = itemsProvider.getItems();
     inputData = itemsArray;
   }
 

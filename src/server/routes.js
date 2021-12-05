@@ -1,6 +1,6 @@
 const controllers = require('./controllers');
 
-module.exports = (req, res) => {
+function handleRoutes(req, res) {
   const { pathname, method } = req;
 
   // Filter endpoints
@@ -63,4 +63,19 @@ module.exports = (req, res) => {
   ) return controllers.discountAsyncPost(req, res);
 
   return controllers.notFound(req, res);
+}
+
+function handleStreamRoutes(req, res) {
+  const { url, method } = req;
+
+  if (url === '/data'
+    && method === 'PUT'
+  ) return controllers.dataUploadCsv(req, res);
+
+  return controllers.notFound(req, res);
+}
+
+module.exports = {
+  handleRoutes,
+  handleStreamRoutes
 };
