@@ -1,4 +1,7 @@
 module.exports = (itemsRaw) => {
+  // If item price is integer value
+  const arrayLengthWithIntegerPrice = 6;
+
   const itemsArray = itemsRaw.map(element => {
     return element.split(',');
   });
@@ -12,7 +15,7 @@ module.exports = (itemsRaw) => {
 
     itemsArrayDublicate.forEach((item, index) => {
       if (key !== index  && !keysToSkip.includes(index)) {
-        if (element.length > 6) {
+        if (element.length > arrayLengthWithIntegerPrice) {
           if (element[0] === item[0]
             && element[1] === item[1]
             && element[4] === item[4]
