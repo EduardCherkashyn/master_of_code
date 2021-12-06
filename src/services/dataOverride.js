@@ -2,7 +2,7 @@ const fs = require('fs');
 const itemsValidator = require('./validators/itemsValidator');
 
 function dataOverride(req) {
-  const postData = JSON.parse(req.body);
+  const postData = req.body;
 
   if (!itemsValidator(postData)) {
     return {

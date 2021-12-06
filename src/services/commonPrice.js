@@ -1,8 +1,9 @@
 const itemsValidator = require('./validators/itemsValidator');
 const helpers = require('./helpers');
 
-function commonPriceGet() {
-  const formattedItems = helpers.addingTotalPriceHelper(helpers.items);
+async function commonPriceGet() {
+  const itemsRaw = await helpers.items();
+  const formattedItems = await helpers.addingTotalPriceHelper(itemsRaw);
 
   return {
     code: 200,
@@ -11,7 +12,7 @@ function commonPriceGet() {
 }
 
 function commonPricePost(req) {
-  const postData = JSON.parse(req.body);
+  const postData = req.body;
 
   if (!itemsValidator(postData)) {
     return {

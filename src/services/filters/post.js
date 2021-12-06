@@ -1,48 +1,54 @@
 const helpers = require('../helpers');
 const validators = require('../validators');
 
-function filter(req) {
+async function filter(req) {
+  const itemsRaw = await helpers.items();
+
   if (req.body === '{}') {
     return {
       code: 200,
       responseData: {
-        items: helpers.items
+        items: itemsRaw
       }
     };
   }
 
-  const bodyParams = JSON.parse(req.body);
+  const bodyParams = req.body;
 
-  if (!validators.isAllowedKeysParams(Object.keys(bodyParams))) {
-    return {
-      code: 404,
-      responseData: {
-        message: 'Bad request'
-      }
-    };
-  }
+  bodyParams.forEach(element => {
+    if (!validators.isAllowedKeysParams(Object.keys(element))) {
+      return {
+        code: 404,
+        responseData: {
+          message: 'Bad request'
+        }
+      };
+    }
+  });
 
-  const paramsArray = Object.entries(bodyParams);
-  const isAllowedValuesParams = validators.isAllowedValuesParams(
-    paramsArray
-  );
+  bodyParams.forEach(element => {
+    const isAllowedValuesParams = validators.isAllowedValuesParams(
+      Object.entries(element)
+    );
 
-  if (!isAllowedValuesParams) {
-    return {
-      code: 404,
-      responseData: {
-        message: 'Bad request'
-      }
-    };
-  }
+    if (!isAllowedValuesParams) {
+      return {
+        code: 404,
+        responseData: {
+          message: 'Bad request'
+        }
+      };
+    }
+  });
 
-  const filterParams = paramsArray;
-  const filteredItems = filterParams.reduce(function(items, current) {
+
+  const filterParams = Object.entries(req.query);
+  const filteredItems = filterParams.reduce((items, current) => {
     const keyParam = current[0];
     const valueParam = current[1];
 
     return helpers.filterHelper(items, keyParam, valueParam);
-  }, helpers.items);
+  }, bodyParams);
 
   if (filteredItems.length === 0) {
     return {

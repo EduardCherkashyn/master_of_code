@@ -1,7 +1,7 @@
 const services = require('../../services');
 
-function commonPriceGet(req, res) {
-  const { message, code } = services.commonPriceGet(req);
+async function commonPriceGet(req, res) {
+  const { message, code } = await services.commonPriceGet(req);
   res.setHeader('Content-Type', 'application/json');
   res.statusCode = code;
   res.write(JSON.stringify(message));

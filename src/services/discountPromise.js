@@ -9,7 +9,7 @@ async function discountPromiseGet() {
 }
 
 function discountPromisePost(req) {
-  const postData = JSON.parse(req.body);
+  const postData = req.body;
 
   return new Promise((resolve, reject) => {
     if (!itemsValidator(postData)) reject(new Error('Not valid data'));

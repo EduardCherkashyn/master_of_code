@@ -15,7 +15,7 @@ async function discountAsyncGet() {
 
 async function discountAsyncPost(req) {
 
-  const postData = JSON.parse(req.body);
+  const postData = req.body;
 
   if (!itemsValidator(postData)) {
     return {
@@ -24,7 +24,7 @@ async function discountAsyncPost(req) {
     };
   }
 
-  const itemsWithTotalPrice = helpers.addingTotalPriceHelper(postData);
+  const itemsWithTotalPrice = await helpers.addingTotalPriceHelper(postData);
   const itemsWithDiscount = await helpers.discountAsync(itemsWithTotalPrice);
 
 

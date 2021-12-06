@@ -1,29 +1,25 @@
-const http = require('http');
-const requestHandler = require('./requestHandler');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const server = http.createServer(requestHandler);
+const filter = require('./routes/filter');
+const topPrice = require('./routes/topPrice');
+const commonPrice = require('./routes/commonPrice');
+const discount = require('./routes/discount');
+const data = require('./routes/data');
 
-function start() {
-  const PORT = 3000;
-  http.createServer(requestHandler).listen(PORT, () => {
-    console.log(`Server successfully started on port ${PORT}`);
-  });
-}
+const app = express();
 
-function stop(callback) {
-  server.close(err => {
-    if (err) {
-      console.error(err, 'Failed to close server!');
-      callback();
-      return;
-    }
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-    console.log('Server has been stopped.');
-    callback();
-  });
-}
+app.use('/filter', filter);
+app.use('/topprice', topPrice);
+app.use('/commonprice', commonPrice);
+app.use('/discount', discount);
+app.use('/data', data);
 
-module.exports = {
-  start,
-  stop
-};
+module.exports = app;

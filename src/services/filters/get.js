@@ -1,19 +1,20 @@
 const helpers = require('../helpers');
 const validators = require('../validators');
 
-function filter(req) {
-  const queryParams = req.params;
+async function filter(req) {
+  const itemsRaw = await helpers.items();
+  const queryParams = req.query;
 
   if (queryParams.toString() === '') {
     return {
       code: 200,
       responseData: {
-        message: helpers.items
+        message: itemsRaw
       }
     };
   }
 
-  if (!validators.isAllowedKeysParams(Array.from(queryParams.keys()))) {
+  if (!validators.isAllowedKeysParams(Object.keys(queryParams))) {
     return {
       code: 400,
       responseData: {
@@ -23,7 +24,7 @@ function filter(req) {
   }
 
   const isAllowedValuesParams = validators.isAllowedValuesParams(
-    Array.from(queryParams.entries())
+    Object.entries(queryParams)
   );
 
   if (!isAllowedValuesParams) {
@@ -35,13 +36,13 @@ function filter(req) {
     };
   }
 
-  const filterParams = Array.from(queryParams.entries());
-  const filteredItems = filterParams.reduce(function(items, current) {
+  const filterParams = Object.entries(queryParams);
+  const filteredItems = filterParams.reduce((items, current) => {
     const keyParam = current[0];
     const valueParam = current[1];
 
     return helpers.filterHelper(items, keyParam, valueParam);
-  }, helpers.items);
+  }, itemsRaw);
 
   if (filteredItems.length === 0) {
     return {
