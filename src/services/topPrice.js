@@ -1,8 +1,8 @@
 const itemsValidator = require('./validators/itemsValidator');
 const helpers = require('./helpers');
 
-function topPriceGet() {
-  const highestPriceItems = helpers.highestPriceHelper();
+async function topPriceGet() {
+  const highestPriceItems = await helpers.highestPriceHelper();
 
   return {
     code: 200,
@@ -10,9 +10,8 @@ function topPriceGet() {
   };
 }
 
-function topPricePost(req) {
-
-  const postData = JSON.parse(req.body);
+async function topPricePost(req) {
+  const postData = req.body;
 
   if (!itemsValidator(postData)) {
     return {
@@ -21,7 +20,7 @@ function topPricePost(req) {
     };
   }
 
-  const highestPriceItems = helpers.highestPriceHelper(postData);
+  const highestPriceItems = await helpers.highestPriceHelper(postData);
 
   return {
     code: 200,

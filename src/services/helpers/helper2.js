@@ -20,7 +20,7 @@ module.exports = async (itemsData = 0) => {
   let inputData = itemsData;
 
   if (itemsData === 0) {
-    const itemsArray = itemsProvider.getItems();
+    const itemsArray = await itemsProvider.getItems();
     inputData = itemsArray;
   }
 

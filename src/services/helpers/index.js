@@ -6,7 +6,7 @@ const discountPromise = require('./helperDiscountPromise');
 const discountPromisify = require('./helperDiscountPromisify');
 const discountAsync = require('./helperDiscountAsync');
 
-const items = itemsProvider.productItems;
+const items = itemsProvider.getItems;
 
 module.exports = {
   filterHelper,

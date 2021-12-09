@@ -1,29 +1,32 @@
-const http = require('http');
-const requestHandler = require('./requestHandler');
+const express = require('express');
+const bodyParser = require('body-parser');
+const basicAuth = require('express-basic-auth');
 
-const server = http.createServer(requestHandler);
+const filter = require('./routes/filter');
+const topPrice = require('./routes/topPrice');
+const commonPrice = require('./routes/commonPrice');
+const discount = require('./routes/discount');
+const data = require('./routes/data');
+const { errorHandler } = require('./middlewares');
 
-function start() {
-  const PORT = 3000;
-  http.createServer(requestHandler).listen(PORT, () => {
-    console.log(`Server successfully started on port ${PORT}`);
-  });
-}
+const app = express();
 
-function stop(callback) {
-  server.close(err => {
-    if (err) {
-      console.error(err, 'Failed to close server!');
-      callback();
-      return;
-    }
+app.use(basicAuth({
+  users: { 'Masters': 'Academy'}
+}));
 
-    console.log('Server has been stopped.');
-    callback();
-  });
-}
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-module.exports = {
-  start,
-  stop
-};
+app.use('/filter', filter);
+app.use('/topprice', topPrice);
+app.use('/commonprice', commonPrice);
+app.use('/discount', discount);
+app.use('/data', data);
+app.use(errorHandler);
+
+module.exports = app;

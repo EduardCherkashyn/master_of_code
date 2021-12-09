@@ -1,15 +1,15 @@
 const services = require('../../services');
 
-function topPriceGet(req, res) {
-  const { message, code } = services.topPriceGet();
+async function topPriceGet(req, res) {
+  const { message, code } = await services.topPriceGet();
   res.setHeader('Content-Type', 'application/json');
   res.statusCode = code;
   res.write(JSON.stringify(message));
   res.end();
 }
 
-function topPricePost(req, res) {
-  const { message, code } = services.topPricePost(req);
+async function topPricePost(req, res) {
+  const { message, code } = await services.topPricePost(req);
   res.setHeader('Content-Type', 'application/json');
   res.statusCode = code;
   res.write(JSON.stringify(message));
