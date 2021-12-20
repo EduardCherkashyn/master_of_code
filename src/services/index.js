@@ -6,16 +6,14 @@ const dataOverride = require('./dataOverride');
 const dataUploadCsv = require('./dataUploadCsv');
 const {
   discountPromiseGet,
-  discountPromisePost
+  discountPromisePost,
 } = require('./discountPromise');
 const {
   discountPromisifyGet,
-  discountPromisifyPost
+  discountPromisifyPost,
 } = require('./discountPromisify');
-const {
-  discountAsyncGet,
-  discountAsyncPost
-} = require('./discountAsync');
+const { discountAsyncGet, discountAsyncPost } = require('./discountAsync');
+const productService = require('./product');
 
 function notFound() {
   return {
@@ -39,5 +37,6 @@ module.exports = {
   discountPromisifyPost,
   discountAsyncGet,
   discountAsyncPost,
-  notFound
+  productService,
+  notFound,
 };
