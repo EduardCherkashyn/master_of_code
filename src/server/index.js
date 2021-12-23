@@ -8,7 +8,7 @@ const commonPrice = require('./routes/commonPrice');
 const discount = require('./routes/discount');
 const data = require('./routes/data');
 const product = require('./routes/product');
-const { errorHandler } = require('./middlewares');
+const errorHandler = require('./middlewares');
 
 const app = express();
 
