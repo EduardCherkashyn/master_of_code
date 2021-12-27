@@ -5,11 +5,17 @@ const {
   discountPromisifyGet,
   discountPromisifyPost,
   discountAsyncGet,
-  discountAsyncPost
+  discountAsyncPost,
 } = require('./discount');
 const { topPriceGet, topPricePost } = require('./topPrice');
 const { filterGet, filterPost } = require('./filters');
 const { commonPriceGet, commonPricePost } = require('./commonPrice');
+const {
+  productGet,
+  productPost,
+  productPut,
+  productDelete,
+} = require('./product');
 
 function dataOverride(req, res) {
   const { message, code } = services.dataOverride(req);
@@ -49,5 +55,9 @@ module.exports = {
   discountPromisifyPost,
   discountAsyncGet,
   discountAsyncPost,
+  productGet,
+  productPost,
+  productPut,
+  productDelete,
   notFound,
 };
