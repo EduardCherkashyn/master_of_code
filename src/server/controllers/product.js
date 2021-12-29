@@ -1,5 +1,17 @@
 const { productService } = require('../../services');
 
+async function productGetAll(req, res, next) {
+  try {
+    const { responseData, code } = await productService.productGetAll();
+    res.setHeader('Content-Type', 'application/json');
+    res.statusCode = code;
+    res.write(JSON.stringify(responseData));
+    res.end();
+  } catch (err) {
+    return next(err);
+  }
+}
+
 async function productGet(req, res, next) {
   try {
     const { responseData, code } = await productService.productGet(req);
@@ -49,6 +61,7 @@ async function productDelete(req, res, next) {
 }
 
 module.exports = {
+  productGetAll,
   productGet,
   productPost,
   productPut,

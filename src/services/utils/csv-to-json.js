@@ -1,13 +1,14 @@
 const { Transform } = require('stream');
 const itemsOptimizer = require('./items-optimizer');
 const objectsOptimizer = require('./objects-optimizer');
+const productUploader = require('../helpers/productUploader');
 
 function parseStringToJson(dataRaw, isFirstLine) {
   let output = '';
   const optimizeData = itemsOptimizer(dataRaw);
   let isTopLine = isFirstLine;
 
-  optimizeData.forEach(itemArray => {
+  optimizeData.forEach((itemArray) => {
     if (isTopLine) {
       output += '{';
       isTopLine = false;
@@ -61,11 +62,11 @@ function createCsvToJson() {
       firstItemInChunk = data.shift();
       const chunkCutItems = validateChunkSideItems(
         lastItemInChunk,
-        firstItemInChunk
+        firstItemInChunk,
       );
       lastItemInChunk = data.pop();
 
-      chunkCutItems.forEach(element => {
+      chunkCutItems.forEach((element) => {
         data.unshift(element);
       });
 
@@ -74,14 +75,15 @@ function createCsvToJson() {
       totalItems = JSON.stringify(
         objectsOptimizer(JSON.parse(`[${totalItems}]`)),
         null,
-        ' '
+        ' ',
       );
     }
 
     callback(null, null);
   };
 
-  const flush = callback => {
+  const flush = (callback) => {
+    productUploader(totalItems);
     callback(null, totalItems);
   };
 
@@ -89,5 +91,5 @@ function createCsvToJson() {
 }
 
 module.exports = {
-  createCsvToJson
+  createCsvToJson,
 };

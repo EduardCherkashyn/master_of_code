@@ -11,6 +11,7 @@ const { topPriceGet, topPricePost } = require('./topPrice');
 const { filterGet, filterPost } = require('./filters');
 const { commonPriceGet, commonPricePost } = require('./commonPrice');
 const {
+  productGetAll,
   productGet,
   productPost,
   productPut,
@@ -55,6 +56,7 @@ module.exports = {
   discountPromisifyPost,
   discountAsyncGet,
   discountAsyncPost,
+  productGetAll,
   productGet,
   productPost,
   productPut,
