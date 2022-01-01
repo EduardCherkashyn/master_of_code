@@ -1,4 +1,13 @@
-const db = require('../db')();
+const db = require('../db/product')();
+
+async function productGetAll() {
+  const responseData = await db.getProductAll();
+
+  return {
+    code: 200,
+    responseData,
+  };
+}
 
 async function productGet(req) {
   const responseData = await db.getProduct(req.params.id);
@@ -29,7 +38,7 @@ async function productPost(req) {
 async function productPut(req) {
   const product = req.body;
   const productFields = {
-    id: product.id,
+    id: req.params.id,
     item: product.item,
     type: product.type,
     measure: product.measure,
@@ -59,6 +68,7 @@ async function productDelete(req) {
 }
 
 module.exports = {
+  productGetAll,
   productGet,
   productPost,
   productPut,
